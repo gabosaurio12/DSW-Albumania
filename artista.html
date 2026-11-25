@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Albumania: detalles del artista y sus álbumes en TheAudioDB.">
+    <title>Artista · Albumania</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="cabecera">
+        <div class="contenedor cabecera__contenido">
+            <div>
+                <a class="volver" href="index.html">Volver al juego</a>
+                <h1 id="artista-nombre" class="cabecera__titulo">Artista</h1>
+            </div>
+        </div>
+    </header>
+
+    <main class="contenedor principal principal--detalle">
+        <section id="artista-seccion" class="artista" aria-labelledby="artista-nombre">
+            <div class="artista-cabecera">
+                <img id="artista-imagen" class="artista-imagen" alt="" loading="lazy" hidden>
+                <div>
+                    <p id="artista-datos" class="artista-datos"></p>
+                    <p id="artista-biografia" class="artista-biografia"></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="albumes-seccion" class="albumes" aria-labelledby="albumes-titulo">
+            <h2 id="albumes-titulo" class="albumes__titulo">Álbumes</h2>
+            <ul id="lista-albumes" class="albumes__lista"></ul>
+        </section>
+
+        <section id="error-artista" class="error-carga" aria-labelledby="error-artista-titulo" hidden>
+            <h2 id="error-artista-titulo">No se pudo cargar la información</h2>
+            <p id="error-artista-mensaje"></p>
+            <button id="reintentar-artista" class="boton" type="button">Reintentar</button>
+        </section>
+    </main>
+
+    <footer class="pie">
+        <p>Albumania · canciones de TheAudioDB</p>
+    </footer>
+
+    <script type="module" src="artista.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Albumania: detalle del álbum y canciones disponibles en TheAudioDB.">
+    <title>Álbum · Albumania</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="cabecera">
+        <div class="contenedor cabecera__contenido">
+            <div>
+                <a id="album-volver" class="volver" href="artista.html">Volver al artista</a>
+                <h1 id="album-titulo" class="cabecera__titulo">Álbum</h1>
+            </div>
+        </div>
+    </header>
+
+    <main class="contenedor principal principal--detalle">
+        <section id="album-seccion" class="album-detalle" aria-labelledby="album-titulo">
+            <div class="album-detalle__cabecera">
+                <img id="album-imagen" class="album-detalle__portada" alt="" loading="lazy" hidden>
+                <div>
+                    <p id="album-datos" class="album-detalle__datos"></p>
+                    <p id="album-aviso" class="album-detalle__aviso"></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="canciones-seccion" class="canciones" aria-labelledby="canciones-titulo">
+            <h2 id="canciones-titulo" class="canciones__titulo">Canciones</h2>
+            <ol id="lista-canciones" class="canciones__lista"></ol>
+        </section>
+
+        <section id="error-album" class="error-carga" aria-labelledby="error-album-titulo" hidden>
+            <h2 id="error-album-titulo">No se pudo cargar el álbum</h2>
+            <p id="error-album-mensaje"></p>
+            <button id="reintentar-album" class="boton" type="button">Reintentar</button>
+        </section>
+    </main>
+
+    <footer class="pie">
+        <p>Albumania · canciones de TheAudioDB</p>
+    </footer>
+
+    <script type="module" src="album.js"></script>
+</body>
+</html>

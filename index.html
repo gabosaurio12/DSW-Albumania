@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Albumania: adivina el nombre de la canción en ocho intentos y descubre al artista.">
+    <title>Albumania</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="cabecera">
+        <div class="contenedor cabecera__contenido">
+            <h1 class="cabecera__titulo">Albumania</h1>
+            <p class="cabecera__racha">Racha: <strong id="racha-valor">0</strong> · Mejor: <strong id="racha-mejor">0</strong></p>
+        </div>
+    </header>
+
+    <main class="contenedor principal">
+        <section class="juego" aria-labelledby="juego-titulo">
+            <h2 id="juego-titulo" class="juego__titulo">Adivina la canción</h2>
+            <p class="juego__ayuda">Tienes ocho intentos. Escribe una letra por casilla y pulsa Enter o «Adivinar» para comprobar.</p>
+
+            <div id="tablero" class="tablero" aria-label="Tablero de ocho intentos"></div>
+
+            <form id="formulario" class="formulario" autocomplete="off">
+                <button class="boton" type="submit">Adivinar</button>
+            </form>
+
+            <p id="contador" class="contador">Intento 1 de 8</p>
+            <p id="mensaje" class="mensaje" role="status" aria-live="polite"></p>
+
+            <section id="resultado" class="resultado" aria-labelledby="resultado-titulo" hidden>
+                <a id="resultado-artista" class="resultado__tarjeta" href="artista.html">
+                    <h3 id="resultado-titulo" class="resultado__titulo"></h3>
+                    <p id="resultado-detalle" class="resultado__detalle"></p>
+                    <div class="contenedor-artista">
+                        <figure class="resultado__artista">
+                            <img id="resultado-artista-imagen" class="resultado__artista-imagen" alt="" loading="lazy" hidden>
+                            <figcaption id="resultado-artista-nombre" class="resultado__artista-nombre"></figcaption>
+                        </figure>
+                        <img id="resultado-portada" class="resultado__portada" alt="" loading="lazy" hidden>
+                    </div>
+                </a>
+            </section>
+            <button id="nueva-partida" class="boton nueva-partida" type="button" hidden>Nueva partida</button>
+
+            <section id="error-carga" class="error-carga" aria-labelledby="error-titulo" hidden>
+                <h3 id="error-titulo">No se pudieron cargar las canciones</h3>
+                <p>Comprueba tu conexión e inténtalo de nuevo.</p>
+                <button id="reintentar" class="boton" type="button">Reintentar</button>
+            </section>
+        </section>
+
+        <aside class="panel-pistas" aria-labelledby="pistas-titulo">
+            <h2 id="pistas-titulo" class="panel-pistas__titulo">Programa</h2>
+            <ol id="lista-pistas" class="lista-pistas"></ol>
+        </aside>
+    </main>
+
+    <footer class="pie">
+        <p>Albumania · canciones de TheAudioDB</p>
+    </footer>
+
+    <script type="module" src="juego.js"></script>
+</body>
+</html>

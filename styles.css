@@ -1,0 +1,658 @@
+/* Tokens de la temática */
+
+:root {
+  --color-papel: #f3e9d6;
+  --color-arce: #e7d7bc;
+  --color-tinta: #24313b;
+  --color-sala: #235c55;
+  --color-laton: #b8862b;
+  --color-arena: #cfc5b4;
+  --color-linea: #d8c8aa;
+  --color-pentagrama: rgba(36, 49, 59, 0.07);
+
+  --fuente-titular: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  --fuente-cuerpo: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+
+  --tamano-base: 1rem;
+  --interlineado: 1.6;
+  --espacio-xs: 0.25rem;
+  --espacio-sm: 0.5rem;
+  --espacio-md: 1rem;
+  --espacio-lg: 1.5rem;
+  --espacio-xl: 2.5rem;
+  --ancho-maximo: 68rem;
+  --radio: 0.35rem;
+  --transicion: 160ms ease;
+}
+
+/* Reset y base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-papel);
+  color: var(--color-tinta);
+  font-family: var(--fuente-cuerpo);
+  font-size: var(--tamano-base);
+  line-height: var(--interlineado);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p,
+ol {
+  margin: 0;
+}
+
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-sala);
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ===========================
+   Layout
+   =========================== */
+.contenedor {
+  width: min(100% - 2rem, var(--ancho-maximo));
+  margin-inline: auto;
+}
+
+.cabecera {
+  background: var(--color-arce);
+  border-bottom: 1px solid var(--color-linea);
+}
+
+.cabecera__contenido {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--espacio-sm);
+  padding-block: var(--espacio-md);
+}
+
+.cabecera__titulo {
+  font-family: var(--fuente-titular);
+  font-size: clamp(2rem, 6vw, 3.4rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.cabecera__racha {
+  font-size: 0.9rem;
+  color: rgba(36, 49, 59, 0.8);
+}
+
+.cabecera__racha strong {
+  color: var(--color-sala);
+  font-variant-numeric: tabular-nums;
+}
+
+.principal {
+  display: grid;
+  gap: var(--espacio-lg);
+  padding-block: var(--espacio-xl);
+  align-items: start;
+}
+
+.juego {
+  min-width: 0;
+}
+
+.juego__titulo {
+  font-family: var(--fuente-titular);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 600;
+}
+
+.juego__ayuda {
+  margin-top: var(--espacio-xs);
+  max-width: 60ch;
+  color: rgba(36, 49, 59, 0.78);
+}
+
+/* Componentes */
+
+.tablero {
+  display: grid;
+  gap: 0.3rem;
+  margin-top: var(--espacio-lg);
+  padding: var(--espacio-sm);
+  border: 1px solid var(--color-linea);
+  border-radius: var(--radio);
+  background-color: rgba(255, 255, 255, 0.22);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 5px,
+    var(--color-pentagrama) 5px 6px
+  );
+  background-size: 100% 30px;
+}
+
+.contenedor-artista {
+  display: flex;
+  flex-direction: row;
+}
+
+.fila {
+  display: grid;
+  grid-template-columns: repeat(var(--columnas, 5), minmax(0, 1fr));
+  gap: clamp(1px, 0.35vw, 4px);
+}
+
+.fila--activa .casilla {
+  border-color: var(--color-sala);
+}
+
+.casilla {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  aspect-ratio: 1;
+  border: 1px solid var(--color-linea);
+  border-radius: 0.18rem;
+  background: rgba(255, 255, 255, 0.72);
+  font-size: clamp(0.62rem, 2.4vw, 1.05rem);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-transform: uppercase;
+  transition: background-color var(--transicion), border-color var(--transicion);
+}
+
+.casilla--correcto {
+  background: var(--color-sala);
+  border-color: var(--color-sala);
+  color: #fff;
+}
+
+.casilla--presente {
+  background: var(--color-laton);
+  border-color: var(--color-laton);
+}
+
+.casilla--editable {
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 0;
+  color: inherit;
+  text-align: center;
+  caret-color: var(--color-sala);
+}
+
+.casilla--editable:focus-visible {
+  outline: 2px solid var(--color-sala);
+  outline-offset: 1px;
+}
+
+.formulario {
+  display: flex;
+  gap: var(--espacio-sm);
+  margin-top: var(--espacio-lg);
+}
+
+.boton {
+  padding: 0.7rem 1.1rem;
+  border: 1px solid var(--color-sala);
+  border-radius: var(--radio);
+  background: var(--color-sala);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transicion), color var(--transicion);
+}
+
+.boton:hover {
+  background: #1b4843;
+}
+
+.boton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.contador {
+  margin-top: var(--espacio-sm);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.mensaje {
+  min-height: 1.6em;
+  margin-top: var(--espacio-xs);
+  font-size: 0.9rem;
+  color: rgba(36, 49, 59, 0.85);
+}
+
+.panel-pistas {
+  padding: var(--espacio-md);
+  border: 1px solid var(--color-linea);
+  border-radius: var(--radio);
+  background-color: var(--color-arce);
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0 23px,
+    rgba(255, 255, 255, 0.18) 23px 24px
+  );
+}
+
+.panel-pistas__titulo {
+  margin-bottom: var(--espacio-md);
+  font-family: var(--fuente-titular);
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.lista-pistas {
+  display: grid;
+  gap: var(--espacio-sm);
+}
+
+.pista {
+  display: flex;
+  align-items: baseline;
+  gap: var(--espacio-sm);
+  padding-block: var(--espacio-xs);
+  border-bottom: 1px solid var(--color-linea);
+}
+
+.pista__numero {
+  flex: 0 0 1.75rem;
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: var(--color-tinta);
+  color: var(--color-papel);
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.pista--pendiente {
+  border-bottom: 0;
+  color: rgba(36, 49, 59, 0.75);
+  font-size: 0.92rem;
+}
+
+.resultado {
+  margin-top: var(--espacio-lg);
+}
+
+.resultado__tarjeta {
+  display: block;
+  padding: var(--espacio-md);
+  border-left: 3px solid var(--color-laton);
+  background: rgba(255, 255, 255, 0.45);
+  color: inherit;
+  text-decoration: none;
+  transition: background-color var(--transicion);
+}
+
+.resultado__tarjeta:hover {
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.resultado__titulo {
+  font-family: var(--fuente-titular);
+  font-size: 1.4rem;
+}
+
+.resultado__detalle {
+  margin-top: var(--espacio-xs);
+}
+
+.resultado__portada {
+  display: block;
+  width: min(12rem, 60%);
+  margin-top: var(--espacio-md);
+  border: 1px solid var(--color-linea);
+  border-radius: var(--radio);
+}
+
+.resultado__artista {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-sm);
+  margin-top: var(--espacio-md);
+}
+
+.resultado__artista-imagen {
+  width: 4.5rem;
+  height: 4.5rem;
+  border: 1px solid var(--color-linea);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.resultado__artista-nombre {
+  color: var(--color-sala);
+  font-weight: 600;
+}
+
+.nueva-partida {
+  margin-top: var(--espacio-md);
+}
+
+.artista-cabecera {
+  display: grid;
+  gap: var(--espacio-md);
+  margin-top: var(--espacio-lg);
+}
+
+.artista-imagen {
+  width: min(12rem, 60vw);
+  border: 1px solid var(--color-linea);
+  border-radius: var(--radio);
+}
+
+.artista-datos {
+  color: rgba(36, 49, 59, 0.8);
+  font-size: 0.95rem;
+}
+
+.artista-biografia {
+  max-width: 70ch;
+  margin-top: var(--espacio-md);
+}
+
+.albumes {
+  margin-top: var(--espacio-xl);
+}
+
+.albumes__titulo {
+  font-family: var(--fuente-titular);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 600;
+}
+
+.albumes__lista {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--espacio-lg);
+  margin-top: var(--espacio-md);
+  padding: 0;
+  list-style: none;
+}
+
+.album {
+  padding: var(--espacio-md);
+  border: 1px solid var(--color-linea);
+  border-radius: var(--radio);
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.album__enlace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--espacio-md);
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+}
+
+.album__arte {
+  position: relative;
+  max-width: 12rem;
+}
+
+.album__disco {
+  position: absolute;
+  top: 8%;
+  bottom: 8%;
+  left: 18%;
+  width: 84%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at center, var(--color-laton) 0 14%, transparent 15%),
+    repeating-radial-gradient(circle at center, var(--color-tinta) 0 3px, var(--color-arena) 3px 4px);
+}
+
+.album__portada {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 1px solid var(--color-linea);
+  border-radius: var(--radio);
+  background: var(--color-arce);
+}
+
+.album__info {
+  min-width: 0;
+}
+
+.album__titulo {
+  font-family: var(--fuente-titular);
+  font-size: 1.15rem;
+}
+
+.album__detalle {
+  color: rgba(36, 49, 59, 0.8);
+  font-size: 0.9rem;
+}
+
+.album__accion {
+  display: inline-block;
+  margin-top: var(--espacio-xs);
+  color: var(--color-sala);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.album__enlace:hover .album__accion {
+  text-decoration: underline;
+}
+
+.album-detalle {
+  margin-top: var(--espacio-lg);
+}
+
+.album-detalle__cabecera {
+  display: grid;
+  gap: var(--espacio-md);
+}
+
+.album-detalle__portada {
+  display: block;
+  width: min(100%, 14rem);
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 1px solid var(--color-linea);
+  border-radius: var(--radio);
+  background: var(--color-arce);
+}
+
+.album-detalle__datos {
+  color: rgba(36, 49, 59, 0.8);
+  font-size: 0.95rem;
+}
+
+.album-detalle__aviso {
+  margin-top: var(--espacio-sm);
+  color: var(--color-sala);
+  font-size: 0.9rem;
+}
+
+.canciones {
+  margin-top: var(--espacio-xl);
+}
+
+.canciones__titulo {
+  font-family: var(--fuente-titular);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 600;
+}
+
+.canciones__lista {
+  display: grid;
+  gap: var(--espacio-sm);
+  margin-top: var(--espacio-md);
+  padding: 0;
+  list-style: none;
+}
+
+.cancion {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  gap: var(--espacio-sm);
+  align-items: baseline;
+  padding: var(--espacio-sm) var(--espacio-md);
+  border: 1px solid var(--color-linea);
+  border-radius: var(--radio);
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.cancion--vacia {
+  display: block;
+}
+
+.cancion__numero {
+  color: var(--color-laton);
+  font-family: var(--fuente-titular);
+  font-variant-numeric: tabular-nums;
+}
+
+.cancion__titulo {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.cancion__detalle {
+  color: rgba(36, 49, 59, 0.8);
+  font-size: 0.85rem;
+}
+
+.volver {
+  display: inline-block;
+  margin-bottom: var(--espacio-xs);
+  color: var(--color-sala);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.error-carga {
+  margin-top: var(--espacio-lg);
+  padding: var(--espacio-md);
+  border: 1px solid var(--color-laton);
+  border-radius: var(--radio);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.error-carga h3 {
+  font-family: var(--fuente-titular);
+  font-size: 1.3rem;
+}
+
+.pie {
+  padding-block: var(--espacio-md);
+  border-top: 1px solid var(--color-linea);
+  color: rgba(36, 49, 59, 0.75);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.formulario[hidden],
+.resultado[hidden],
+.nueva-partida[hidden],
+.error-carga[hidden],
+.resultado__portada[hidden],
+.resultado__artista-imagen[hidden],
+.artista-imagen[hidden],
+.album__portada[hidden],
+.album-detalle__portada[hidden],
+.album-detalle[hidden],
+.canciones[hidden],
+.artista[hidden],
+.albumes[hidden] {
+  display: none;
+}
+
+/* Responsive */
+@media (min-width: 640px) {
+  .album__enlace {
+    grid-template-columns: minmax(0, 7rem) minmax(0, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .artista-cabecera,
+  .album-detalle__cabecera {
+    grid-template-columns: minmax(0, 10rem) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .principal {
+    grid-template-columns: minmax(0, 1fr) 18rem;
+    gap: var(--espacio-xl);
+  }
+}
+
+@media (min-width: 1024px) {
+  .principal {
+    grid-template-columns: minmax(0, 1fr) 21rem;
+  }
+}
+
+/* Las páginas de detalle no usan la columna lateral del juego. */
+.principal--detalle {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* Movimiento (una sola entrada) */
+@media (prefers-reduced-motion: no-preference) {
+  .tablero {
+    animation: aparecer 420ms ease-out both;
+  }
+
+  @keyframes aparecer {
+    from {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
