@@ -1,8 +1,3 @@
-/**
- * Acceso a TheAudioDB mediante la API v1 con la clave pública `123`.
- * Las peticiones se reducen al mínimo: solo se consultan los tracks que faltan en caché.
- */
-
 const API_BASE = 'https://www.theaudiodb.com/api/v1/json/123';
 
 export const SEMILLA = Object.freeze([

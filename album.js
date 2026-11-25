@@ -1,7 +1,3 @@
-/**
- * Vista del álbum: detalle breve y canciones disponibles en TheAudioDB.
- */
-
 import { cargarAlbum, cargarCancionesAlbum } from './api.js';
 
 const MILISEGUNDOS_POR_SEGUNDO = 1000;

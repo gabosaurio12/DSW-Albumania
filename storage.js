@@ -1,8 +1,3 @@
-/**
- * Persistencia con Web Storage API.
- * Todas las entradas se versionan para poder ignorar formatos antiguos sin migraciones.
- */
-
 import { esTrackValido } from './api.js';
 
 const VERSION = 1;

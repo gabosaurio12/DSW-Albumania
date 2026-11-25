@@ -1,7 +1,3 @@
-/**
- * Vista del artista: datos breves, biografía y álbumes de la semilla.
- */
-
 import { ALBUMES_POR_ARTISTA, cargarAlbumes, cargarArtista } from './api.js';
 import { leerTracks } from './storage.js';
 
