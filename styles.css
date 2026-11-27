@@ -1,14 +1,30 @@
 /* Tokens de la temática */
 
 :root {
-  --color-papel: #f3e9d6;
-  --color-arce: #e7d7bc;
-  --color-tinta: #24313b;
-  --color-sala: #235c55;
-  --color-laton: #b8862b;
+  --color-papel: #a15c2a;
+  --color-arce: #814d2e;
+  --color-arce-hover: #5a3621;
+  --color-tinta: #ffffff;
+  --color-tinta-tablero: #24313b;
+  --color-sala: #ffffff;
+  --color-correcto: #235c55;
+  --color-laton: #efb852;
   --color-arena: #cfc5b4;
+  --color-crema: #f3e9d6;
   --color-linea: #d8c8aa;
   --color-pentagrama: rgba(36, 49, 59, 0.07);
+
+  --madera-linea: rgba(52, 29, 0, 0.08);
+  --textura-papel: repeating-linear-gradient(
+    to right,
+    transparent 0 9px,
+    var(--madera-linea) 9px 10px
+  );
+  --textura-arce: repeating-linear-gradient(
+    to bottom,
+    transparent 0 9px,
+    var(--madera-linea) 9px 10px
+  );
 
   --fuente-titular: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
   --fuente-cuerpo: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
@@ -38,7 +54,8 @@ html {
 
 body {
   margin: 0;
-  background: var(--color-papel);
+  background-color: var(--color-papel);
+  background-image: var(--textura-papel);
   color: var(--color-tinta);
   font-family: var(--fuente-cuerpo);
   font-size: var(--tamano-base);
@@ -95,7 +112,8 @@ input {
 }
 
 .cabecera {
-  background: var(--color-arce);
+  background-color: var(--color-arce);
+  background-image: var(--textura-arce);
   border-bottom: 1px solid var(--color-linea);
 }
 
@@ -118,7 +136,7 @@ input {
 
 .cabecera__racha {
   font-size: 0.9rem;
-  color: rgba(36, 49, 59, 0.8);
+  color: var(--color-tinta);
 }
 
 .cabecera__racha strong {
@@ -146,7 +164,7 @@ input {
 .juego__ayuda {
   margin-top: var(--espacio-xs);
   max-width: 60ch;
-  color: rgba(36, 49, 59, 0.78);
+  color: var(--color-tinta);
 }
 
 /* Componentes */
@@ -158,7 +176,7 @@ input {
   padding: var(--espacio-sm);
   border: 1px solid var(--color-linea);
   border-radius: var(--radio);
-  background-color: rgba(255, 255, 255, 0.22);
+  background-color: var(--color-arce-hover);
   background-image: repeating-linear-gradient(
     to bottom,
     transparent 0 5px,
@@ -179,7 +197,7 @@ input {
 }
 
 .fila--activa .casilla {
-  border-color: var(--color-sala);
+  border-color: var(--color-laton);
 }
 
 .casilla {
@@ -189,7 +207,8 @@ input {
   aspect-ratio: 1;
   border: 1px solid var(--color-linea);
   border-radius: 0.18rem;
-  background: rgba(255, 255, 255, 0.72);
+  background-color: var(--color-crema);
+  color: var(--color-tinta-tablero);
   font-size: clamp(0.62rem, 2.4vw, 1.05rem);
   font-weight: 700;
   font-variant-numeric: tabular-nums;
@@ -198,9 +217,9 @@ input {
 }
 
 .casilla--correcto {
-  background: var(--color-sala);
-  border-color: var(--color-sala);
-  color: #fff;
+  background: var(--color-correcto);
+  border-color: var(--color-correcto);
+  color: var(--color-tinta);
 }
 
 .casilla--presente {
@@ -212,13 +231,13 @@ input {
   -webkit-appearance: none;
   appearance: none;
   padding: 0;
-  color: inherit;
+  color: var(--color-tinta-tablero);
   text-align: center;
-  caret-color: var(--color-sala);
+  caret-color: var(--color-tinta-tablero);
 }
 
 .casilla--editable:focus-visible {
-  outline: 2px solid var(--color-sala);
+  outline: 2px solid var(--color-laton);
   outline-offset: 1px;
 }
 
@@ -230,9 +249,9 @@ input {
 
 .boton {
   padding: 0.7rem 1.1rem;
-  border: 1px solid var(--color-sala);
+  border: 1px solid var(--color-correcto);
   border-radius: var(--radio);
-  background: var(--color-sala);
+  background: var(--color-correcto);
   color: #fff;
   font-weight: 600;
   cursor: pointer;
@@ -258,7 +277,7 @@ input {
   min-height: 1.6em;
   margin-top: var(--espacio-xs);
   font-size: 0.9rem;
-  color: rgba(36, 49, 59, 0.85);
+  color: var(--color-tinta);
 }
 
 .panel-pistas {
@@ -266,11 +285,7 @@ input {
   border: 1px solid var(--color-linea);
   border-radius: var(--radio);
   background-color: var(--color-arce);
-  background-image: repeating-linear-gradient(
-    90deg,
-    transparent 0 23px,
-    rgba(255, 255, 255, 0.18) 23px 24px
-  );
+  background-image: var(--textura-arce);
 }
 
 .panel-pistas__titulo {
@@ -309,7 +324,7 @@ input {
 
 .pista--pendiente {
   border-bottom: 0;
-  color: rgba(36, 49, 59, 0.75);
+  color: var(--color-tinta);
   font-size: 0.92rem;
 }
 
@@ -321,14 +336,15 @@ input {
   display: block;
   padding: var(--espacio-md);
   border-left: 3px solid var(--color-laton);
-  background: rgba(255, 255, 255, 0.45);
+  background-color: var(--color-arce);
+  background-image: var(--textura-arce);
   color: inherit;
   text-decoration: none;
   transition: background-color var(--transicion);
 }
 
 .resultado__tarjeta:hover {
-  background: rgba(255, 255, 255, 0.72);
+  background-color: var(--color-arce-hover);
 }
 
 .resultado__titulo {
@@ -385,7 +401,7 @@ input {
 }
 
 .artista-datos {
-  color: rgba(36, 49, 59, 0.8);
+  color: var(--color-tinta);
   font-size: 0.95rem;
 }
 
@@ -417,7 +433,8 @@ input {
   padding: var(--espacio-md);
   border: 1px solid var(--color-linea);
   border-radius: var(--radio);
-  background: rgba(255, 255, 255, 0.45);
+  background-color: var(--color-arce);
+  background-image: var(--textura-arce);
 }
 
 .album__enlace {
@@ -454,7 +471,8 @@ input {
   object-fit: cover;
   border: 1px solid var(--color-linea);
   border-radius: var(--radio);
-  background: var(--color-arce);
+  background-color: var(--color-arce);
+  background-image: var(--textura-arce);
 }
 
 .album__info {
@@ -467,7 +485,7 @@ input {
 }
 
 .album__detalle {
-  color: rgba(36, 49, 59, 0.8);
+  color: var(--color-tinta);
   font-size: 0.9rem;
 }
 
@@ -499,17 +517,18 @@ input {
   object-fit: cover;
   border: 1px solid var(--color-linea);
   border-radius: var(--radio);
-  background: var(--color-arce);
+  background-color: var(--color-arce);
+  background-image: var(--textura-arce);
 }
 
 .album-detalle__datos {
-  color: rgba(36, 49, 59, 0.8);
+  color: var(--color-tinta);
   font-size: 0.95rem;
 }
 
 .album-detalle__aviso {
   margin-top: var(--espacio-sm);
-  color: var(--color-sala);
+  color: var(--color-tinta);
   font-size: 0.9rem;
 }
 
@@ -539,7 +558,8 @@ input {
   padding: var(--espacio-sm) var(--espacio-md);
   border: 1px solid var(--color-linea);
   border-radius: var(--radio);
-  background: rgba(255, 255, 255, 0.45);
+  background-color: var(--color-arce);
+  background-image: var(--textura-arce);
 }
 
 .cancion--vacia {
@@ -558,7 +578,7 @@ input {
 }
 
 .cancion__detalle {
-  color: rgba(36, 49, 59, 0.8);
+  color: var(--color-tinta);
   font-size: 0.85rem;
 }
 
@@ -586,7 +606,7 @@ input {
 .pie {
   padding-block: var(--espacio-md);
   border-top: 1px solid var(--color-linea);
-  color: rgba(36, 49, 59, 0.75);
+  color: var(--color-tinta);
   font-size: 0.85rem;
   text-align: center;
 }

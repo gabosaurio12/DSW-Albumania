@@ -109,10 +109,6 @@ async function obtenerTrack(semilla) {
   return track;
 }
 
-/**
- * Consulta en paralelo solo los tracks pendientes.
- * @returns {Promise<{tracks: Array, faltantes: Array}>}
- */
 export async function cargarTracks(faltantes = SEMILLA) {
   const resultados = await Promise.allSettled(faltantes.map((semilla) => obtenerTrack(semilla)));
 
@@ -141,10 +137,6 @@ export async function cargarTop10(artista) {
   return track;
 }
 
-/**
- * Detalles breves del artista para la vista de álbumes.
- * @returns {Promise<Object>}
- */
 export async function cargarArtista(idArtista) {
   const parametros = new URLSearchParams({ i: idArtista });
   const datos = await consultar(`artist.php?${parametros}`);
@@ -206,10 +198,6 @@ async function obtenerAlbum(artista, titulo) {
   return album;
 }
 
-/**
- * Álbumes curados de la semilla. Si uno falla, se omite sin afectar a los demás.
- * @returns {Promise<Array>}
- */
 export async function cargarAlbumes(artista, titulos) {
   const resultados = await Promise.allSettled(titulos.map((titulo) => obtenerAlbum(artista, titulo)));
 
@@ -218,10 +206,6 @@ export async function cargarAlbumes(artista, titulos) {
     .map((resultado) => resultado.value);
 }
 
-/**
- * Detalle del álbum en su propia página.
- * @returns {Promise<Object>}
- */
 export async function cargarAlbum(idAlbum) {
   const parametros = new URLSearchParams({ m: idAlbum });
   const datos = await consultar(`album.php?${parametros}`);
@@ -247,10 +231,6 @@ function mapearCancion(item) {
   });
 }
 
-/**
- * Canciones disponibles con la clave gratuita (una por álbum en v1).
- * @returns {Promise<Array>}
- */
 export async function cargarCancionesAlbum(idAlbum) {
   const parametros = new URLSearchParams({ m: idAlbum });
   const datos = await consultar(`track.php?${parametros}`);
